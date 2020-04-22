@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.soft1851.music.admin.mapper.SysRoleMapper">
+
+    <resultMap id="roleMap" type="com.soft1851.music.admin.entity.SysRole">
+        <result property="roleId" column="role_id" javaType="java.lang.Integer"/>
+        <result property="roleName" column="role_name" javaType="java.lang.String"/>
+        <result property="description" column="description" javaType="java.lang.String"/>
+        <collection property="menus" ofType="com.soft1851.music.admin.entity.SysMenu">
+            <result property="id" column="id" javaType="java.lang.Integer"/>
+            <result property="parentId" column="parent_id" javaType="java.lang.Integer"/>
+            <result property="type" column="type" javaType="java.lang.Integer"/>
+            <result property="title" column="title" javaType="java.lang.String"/>
+            <result property="path" column="path" javaType="java.lang.String"/>
+            <result property="icon" column="icon" javaType="java.lang.String"/>
+            <result property="sort" column="sort" javaType="java.lang.Integer"/>
+        </collection>
+    </resultMap>
+   <select id="selectRoleById" resultMap="roleMap">
+       SELECT t1.role_id,t1.role_name,t1.description,t2.*
+       FROM sys_role t1,
+           sys_menu t2,
+           role_menu t3
+       WHERE t3.role_id = t1.role_id
+       AND t3.menu_id = t2.id
+       AND t1.role_id = #{roleId}
+   </select>
+
+
+</mapper>
