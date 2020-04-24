@@ -9,9 +9,9 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://rm-m5ee476bu350735gjeo.mysql.rds.aliyuncs.com:3306/cloud_music?useUnide=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true
+    url: jdbc:mysql://localhost:3306/cloud-music?useUnide=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true
     username: root
-    password: XuNiit_#
+    password: root
     hikari:
       # 最小连接数
       minimum-idle: 1

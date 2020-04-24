@@ -2,6 +2,7 @@ package com.soft1851.music.admin.controller;
 
 
 import com.soft1851.music.admin.service.SysRoleService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,8 +26,8 @@ public class SysRoleController {
     @Resource
     private SysRoleService sysRoleService;
 
-    @GetMapping("/{roleId}")
-    public Map<String,Object> getRoleById(@PathVariable int roleId) {
+    @GetMapping()
+    public Map<String,Object> getRoleById(@Param("roleId") int roleId) {
         return sysRoleService.selectRoleById(roleId);
     }
 }

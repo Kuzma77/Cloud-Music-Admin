@@ -42,7 +42,7 @@ public class RoleAdmin extends Model<RoleAdmin> {
      * 角色id
      */
     @TableField("role_id")
-    private String roleId;
+    private Integer roleId;
 
 
     @Override

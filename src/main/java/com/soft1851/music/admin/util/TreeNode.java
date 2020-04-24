@@ -23,6 +23,8 @@ public class TreeNode {
 
     private String title;
 
+    private Integer type;
+
     private String icon;
 
     private String path;
@@ -31,12 +33,13 @@ public class TreeNode {
 
     private List<TreeNode> subMenus;
 
-    public TreeNode(Integer id, Integer parentId, String title, String icon, String path, Integer sort) {
-        this.id = id;
-        this.parentId = parentId;
-        this.title = title;
-        this.icon = icon;
-        this.path = path;
-        this.sort = sort;
-    }
+//    public TreeNode(Integer id, Integer parentId, String title,Integer type, String icon, String path, Integer sort) {
+//        this.id = id;
+//        this.parentId = parentId;
+//        this.title = title;
+//        this.type = type;
+//        this.icon = icon;
+//        this.path = path;
+//        this.sort = sort;
+//    }
 }
