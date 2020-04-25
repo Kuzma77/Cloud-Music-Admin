@@ -13,9 +13,4 @@
         <result column="type" property="type" />
     </resultMap>
 
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        type_id, type_name, song_count, delete_flag, update_time, create_time, type
-    </sql>
-
 </mapper>
