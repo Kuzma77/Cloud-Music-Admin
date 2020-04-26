@@ -31,7 +31,6 @@ import java.util.Map;
 public class SysAdminServiceImpl extends ServiceImpl<SysAdminMapper, SysAdmin> implements SysAdminService {
     @Resource
     private SysAdminMapper sysAdminMapper;
-    private SysMenuMapper sysMenuMapper;
 
     @Override
     public boolean login(LoginDto loginDto) {

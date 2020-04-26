@@ -28,7 +28,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(loginInterceptor).addPathPatterns("/sysAdmin/login");
-        registry.addInterceptor(jwtInterceptor).addPathPatterns("/**").excludePathPatterns("/sysAdmin/login","/captcha","/songType/all").excludePathPatterns("/static/**");
+        registry.addInterceptor(jwtInterceptor).addPathPatterns("/**").excludePathPatterns("/sysAdmin/login","/captcha","/songType/all","/songType/add","/songType/delete","/songList/getByPage","/songList/all","/songList/getSongList","/resources/songs").excludePathPatterns("/static/**");
     }
 }
 

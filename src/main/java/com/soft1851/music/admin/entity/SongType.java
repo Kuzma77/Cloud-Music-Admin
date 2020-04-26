@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 import java.util.List;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -20,6 +21,7 @@ import lombok.experimental.Accessors;
  * @author wlsun
  * @since 2020-04-21
  */
+@Builder
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
@@ -50,7 +52,7 @@ public class SongType extends Model<SongType> {
      * 删除标志
      */
     @TableField("delete_flag")
-    private String deleteFlag;
+    private Integer deleteFlag;
 
     /**
      * 修改时间

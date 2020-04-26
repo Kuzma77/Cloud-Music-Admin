@@ -23,4 +23,18 @@ public interface SongTypeService extends IService<SongType> {
      */
     List<Map<String,Object>> getAllType();
 
+    /**
+     * 新增一个类型type(只给名字)
+     * @param typeName
+     * @return
+     */
+    void addType(String typeName);
+
+    /**
+     * 删除类型，将delete_flag改为1
+     * @param typeName
+     * @return
+     */
+    void deleteType(String typeName);
+
 }

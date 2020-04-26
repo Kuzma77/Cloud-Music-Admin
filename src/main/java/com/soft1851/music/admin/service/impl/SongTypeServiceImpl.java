@@ -4,9 +4,11 @@ import com.soft1851.music.admin.entity.SongType;
 import com.soft1851.music.admin.mapper.SongTypeMapper;
 import com.soft1851.music.admin.service.SongTypeService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.soft1851.music.admin.util.Salt;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,5 +45,24 @@ public class SongTypeServiceImpl extends ServiceImpl<SongTypeMapper, SongType> i
             maps.add(map);
         });
         return maps;
+    }
+
+    @Override
+    public void addType(String typeName) {
+        SongType songType = SongType.builder()
+                .typeId(Salt.getRandomSalt())
+                .typeName(typeName)
+                .songCount(0)
+                .deleteFlag(0)
+                .createTime(LocalDateTime.now())
+                .updateTime(LocalDateTime.now())
+                .type(0)
+                .build();
+        songTypeMapper.addType(songType);
+    }
+
+    @Override
+    public void deleteType(String typeName) {
+        songTypeMapper.deleteType(typeName);
     }
 }

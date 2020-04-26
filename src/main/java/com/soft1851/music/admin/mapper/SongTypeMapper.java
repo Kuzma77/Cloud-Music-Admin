@@ -37,10 +37,9 @@ public interface SongTypeMapper extends BaseMapper<SongType> {
     /**
      * 新增一个类型type
      * @param songType
-     * @return
      */
-    @Insert("INSERT INTO song_type VALUES(#{typeId},#{typeName},#{songCount},#{deleteFlag},#{updateTime},#{type})")
-    int addType(SongType songType);
+    @Insert("INSERT INTO song_type VALUES(#{typeId},#{typeName},#{songCount},#{deleteFlag},#{updateTime},#{createTime},#{type})")
+    void addType(SongType songType);
 
     /**
      * 删除类型，将delete_flag改为1
@@ -48,5 +47,5 @@ public interface SongTypeMapper extends BaseMapper<SongType> {
      * @return
      */
     @Update("UPDATE song_type SET delete_flag = 1 WHERE type_name = #{typeName}")
-    int deleteType(String typeName);
+    void deleteType(String typeName);
 }

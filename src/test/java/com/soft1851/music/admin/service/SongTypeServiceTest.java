@@ -17,4 +17,9 @@ class SongTypeServiceTest {
         List<Map<String,Object>> list = songTypeService.getAllType();
         list.forEach(System.out::println);
     }
+
+    @Test
+    void addType() {
+        songTypeService.addType("艺术");
+    }
 }
