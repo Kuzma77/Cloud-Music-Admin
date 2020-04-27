@@ -12,5 +12,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2020-04-21
  */
 public interface SongService extends IService<Song> {
-
+    /**
+     * 导出数据
+     */
+    void exportData();
 }
