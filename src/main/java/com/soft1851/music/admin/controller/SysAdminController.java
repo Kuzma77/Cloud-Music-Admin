@@ -43,27 +43,9 @@ public class SysAdminController {
      * @return String
      */
     @PostMapping("/login")
-    public Map<String, Object> login(@RequestBody LoginDto loginDto) {
-        Map<String, Object> map = new TreeMap<>();
+    public Map login(@RequestBody LoginDto loginDto) {
         log.info(loginDto.toString());
-        //判断登录结果
-        boolean isLogin = sysAdminService.login(loginDto);
-        log.info(String.valueOf(isLogin));
-        if (isLogin) {
-            //登录成功，取得admin的信息（包含所有角色）
-            SysAdmin admin = sysAdminService.getAdmin(loginDto.getName());
-            //roles是个list，可能会是多个
-            List<SysRole> roles = admin.getRoles();
-            String roleString = JSONObject.toJSONString(roles);
-            log.info("管理员角色列表：" + roleString);
-            //将该管理员的所有角色的集合roles存入token，在后面鉴权的时候从中查找，有效时间10分钟
-            String token = JwtTokenUtil.getToken(admin.getId(), JSONObject.toJSONString(roles), new Date(System.currentTimeMillis() + 600L * 1000L));
-            map.put("admin", admin);
-            map.put("token", token);
-        } else {
-            map.put("msg", "登录失败");
-        }
-        return map;
+        return sysAdminService.login(loginDto);
     }
 
     @GetMapping(value = "/{adminName}")

@@ -8,8 +8,8 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 import java.util.List;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 import lombok.experimental.Accessors;
 
 /**
@@ -21,12 +21,16 @@ import lombok.experimental.Accessors;
  * @since 2020-04-21
  */
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("sys_role")
 public class SysRole extends Model<SysRole> {
 
     private static final long serialVersionUID = 1L;
+
 
     /**
      * 主键
@@ -43,11 +47,13 @@ public class SysRole extends Model<SysRole> {
     /**
      * 角色描述
      */
+    @JsonIgnore
     @TableField("description")
     private String description;
 
-
+    @JsonIgnore
     private List<SysMenu> menus;
+
 
     @Override
     protected Serializable pkVal() {
