@@ -1,6 +1,7 @@
 package com.soft1851.music.admin.controller;
 
 
+import com.soft1851.music.admin.annotation.ControllerWebLog;
 import com.soft1851.music.admin.service.SongTypeService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.*;
@@ -24,16 +25,19 @@ public class SongTypeController {
     private SongTypeService songTypeService;
 
     @GetMapping(value = "/all")
+    @ControllerWebLog
     public List<Map<String,Object>> getAllType(){
         return songTypeService.getAllType();
     }
 
     @PostMapping(value = "/add")
+    @ControllerWebLog
     public void addType(@Param("typeName") String typeName){
         songTypeService.addType(typeName);
     }
 
     @DeleteMapping(value = "/delete")
+    @ControllerWebLog
     public void deleteType(@Param("typeName") String typeName){
         songTypeService.deleteType(typeName);
     }

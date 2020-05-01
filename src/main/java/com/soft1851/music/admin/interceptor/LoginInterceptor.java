@@ -48,15 +48,15 @@ public class LoginInterceptor implements HandlerInterceptor {
         JSONObject jsonObject = JSONObject.parseObject(body);
         //判断以用户名作为key的数据是否还存在
 
-        String name = jsonObject.getString("name");
+        String account = jsonObject.getString("account");
         String password = jsonObject.getString("password");
         String verifyCode = jsonObject.getString("verifyCode");
-        LoginDto loginDto = LoginDto.builder().name(name).password(password).verifyCode(verifyCode).build();
-        log.info(name + "+++++++++++++" + verifyCode);
-        if (redisService.existsKey(name)) {
+        LoginDto loginDto = LoginDto.builder().account(account).password(password).verifyCode(verifyCode).build();
+        log.info(account + "+++++++++++++" + verifyCode);
+        if (redisService.existsKey(account)) {
             log.info("验证码正确");
             //取得redis中的验证码
-            String correctCode = redisService.getValue(name, String.class);
+            String correctCode = redisService.getValue(account, String.class);
             //忽略大小写比对，成功则放行到controller调用登录接口
             if (correctCode.equalsIgnoreCase(verifyCode)) {
                 return true;

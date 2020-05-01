@@ -1,13 +1,14 @@
 package com.soft1851.music.admin.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.soft1851.music.admin.common.ResultCode;
+import com.soft1851.music.admin.dto.AdminDto;
 import com.soft1851.music.admin.dto.LoginDto;
 import com.soft1851.music.admin.entity.SysAdmin;
 import com.soft1851.music.admin.entity.SysRole;
 import com.soft1851.music.admin.exception.CustomException;
 import com.soft1851.music.admin.mapper.SysAdminMapper;
-import com.soft1851.music.admin.mapper.SysMenuMapper;
 import com.soft1851.music.admin.service.RedisService;
 import com.soft1851.music.admin.service.SysAdminService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -17,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.*;
 
 /**
@@ -39,13 +41,13 @@ public class SysAdminServiceImpl extends ServiceImpl<SysAdminMapper, SysAdmin> i
     @Override
     public Map<String,Object> login(LoginDto loginDto) {
         //根据查到基础信息，主要是要用密码来判定
-        SysAdmin admin = sysAdminMapper.getSysAdminByName(loginDto.getName());
+        SysAdmin admin = sysAdminMapper.getSysAdminByAccount(loginDto.getAccount());
         if (admin != null) {
             //客户端密码加密后和数据库的比对
             String pass = Md5Util.getMd5(loginDto.getPassword(), true, 32);
             if (admin.getPassword().equals(pass)) {
                 //登录成功，取得admin的完整信息（包含所有角色）
-                SysAdmin admin1 = sysAdminMapper.selectByName(loginDto.getName());
+                SysAdmin admin1 = sysAdminMapper.selectByAccount(loginDto.getAccount());
                 //roles是个list，可能会是多个
                 List<SysRole> roles = admin1.getRoles();
                 String roleString = JSONObject.toJSONString(roles);
@@ -70,8 +72,20 @@ public class SysAdminServiceImpl extends ServiceImpl<SysAdminMapper, SysAdmin> i
 
 
     @Override
-    public SysAdmin getAdmin(String name) {
-        return sysAdminMapper.selectByName(name);
+    public SysAdmin getAdmin(String account) {
+        return sysAdminMapper.selectByAccount(account);
+    }
+
+    @Override
+    public void updateSysAdmin(AdminDto adminDto) {
+        adminDto.setUpdateTime(LocalDateTime.now());
+        sysAdminMapper.updateSysAdmin(adminDto);
+    }
+
+    @Override
+    public void updatePassword(String password, String id) {
+        String pass = Md5Util.getMd5(password, true, 32);
+        sysAdminMapper.updatePassword(pass,id);
     }
 
     @Override

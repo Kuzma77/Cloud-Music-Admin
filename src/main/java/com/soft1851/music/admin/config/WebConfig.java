@@ -30,7 +30,7 @@ public class WebConfig implements WebMvcConfigurer {
         //registry.addInterceptor(loginInterceptor).addPathPatterns("/sysAdmin/login").excludePathPatterns("/**").excludePathPatterns("/static/**");
         //registry.addInterceptor(jwtInterceptor).addPathPatterns("/sysRole").excludePathPatterns("**").excludePathPatterns("/static/**");
         registry.addInterceptor(loginInterceptor).addPathPatterns("/sysAdmin/login");
-        registry.addInterceptor(jwtInterceptor).addPathPatterns("/**").excludePathPatterns("/sysAdmin/login","/captcha","/songType/all","/songType/add","/songType/delete","/songList/getByPage","/songList/all","/songList/getSongList","/resources/songs").excludePathPatterns("/static/**");
+        registry.addInterceptor(jwtInterceptor).addPathPatterns("/**").excludePathPatterns("/sysAdmin/login","/captcha","/songType/all","/songType/add","/songType/delete","/songList/getByPage","/songList/all","/songList/getSongList","/resources/songs","/sysAdmin/update","/sysAdmin/updatePassword").excludePathPatterns("/static/**");
     }
 }
 

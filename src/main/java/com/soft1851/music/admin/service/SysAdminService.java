@@ -1,13 +1,11 @@
 package com.soft1851.music.admin.service;
 
+import com.soft1851.music.admin.dto.AdminDto;
 import com.soft1851.music.admin.dto.LoginDto;
 import com.soft1851.music.admin.entity.SysAdmin;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.soft1851.music.admin.entity.SysRole;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,11 +26,25 @@ public interface SysAdminService extends IService<SysAdmin> {
     Map<String,Object> login(LoginDto loginDto);
 
     /**
-     * 根据name查询Admin
-     * @param name
+     * 根据account查询Admin
+     * @param account
      * @return
      */
-    SysAdmin getAdmin(String name);
+    SysAdmin getAdmin(String account);
+
+    /**
+     * 修改个人信息
+     * @param adminDto
+     */
+    void updateSysAdmin(AdminDto adminDto);
+
+    /**
+     *
+     * 修改密码
+     * @param password
+     * @param id
+     */
+    void updatePassword(String password,String id);
 
     /**
      * 为指定的管理员生成token

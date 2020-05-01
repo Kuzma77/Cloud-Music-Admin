@@ -9,8 +9,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import lombok.experimental.Accessors;
 
 /**
@@ -21,7 +20,10 @@ import lombok.experimental.Accessors;
  * @author wlsun
  * @since 2020-04-21
  */
+@Builder
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("sys_admin")
@@ -33,6 +35,12 @@ public class SysAdmin extends Model<SysAdmin> {
      */
     @TableId("id")
     private String id;
+
+    /**
+     * 账号
+     */
+    @TableField("account")
+    private String account;
 
     /**
      * 用户名

@@ -1,6 +1,7 @@
 package com.soft1851.music.admin.controller;
 
 
+import com.soft1851.music.admin.annotation.ControllerWebLog;
 import com.soft1851.music.admin.dto.PageDto;
 import com.soft1851.music.admin.entity.SongList;
 import com.soft1851.music.admin.mapper.SongListMapper;
@@ -29,14 +30,17 @@ public class SongListController {
     @Resource
     private SongListService songListService;
     @PostMapping(value = "/getByPage")
+    @ControllerWebLog
     public Map<String,Object> getSongListByPage(@RequestBody PageDto pageDto){
         return songListService.getByPage(pageDto);
     }
     @GetMapping(value = "/all")
+    @ControllerWebLog
     public List<SongList> getAllSongList(){
         return songListMapper.getAll();
     }
     @GetMapping(value = "/getSongList")
+    @ControllerWebLog
     public Map<String, Object> getSongListById(@Param("SongListId") String songListId){
         return songListService.selectSongsBySongListId(songListId);
     }
