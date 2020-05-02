@@ -26,7 +26,7 @@
 
     <update id="updateSysAdmin" parameterType="com.soft1851.music.admin.dto.AdminDto">
         Update sys_admin
-        SET sys_admin.account = #{account} , sys_admin.name = #{name} , sys_admin.update_time=#{updateTime}
+        SET sys_admin.account = #{account} , sys_admin.name = #{name} , sys_admin.avatar = #{avatar} , sys_admin.update_time=#{updateTime}
         WHERE sys_admin.id = #{id}
     </update>
 

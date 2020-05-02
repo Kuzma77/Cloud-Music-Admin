@@ -28,5 +28,4 @@ public class AdminDto {
 
     private LocalDateTime updateTime;
 
-    private Integer status;
 }

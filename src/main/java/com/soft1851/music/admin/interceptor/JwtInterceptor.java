@@ -40,6 +40,7 @@ public class JwtInterceptor implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        log.info("进入Jwt拦截器");
         String token = request.getHeader("Authorization");
         //认证
         if (token == null) {
@@ -56,26 +57,34 @@ public class JwtInterceptor implements HandlerInterceptor {
             if (!redisService.existsKey(adminId)) {
                 log.info("### 用户认证失败 ###");
                 throw new CustomException("用户认证失败", ResultCode.USER_AUTH_ERROR);
-            }
-            //用这个secrect私钥从token中解析出roles字符串
-            String secrect = redisService.getValue(adminId, String.class);
-            String roles = JwtTokenUtil.getRoles(token, secrect);
-            log.info("## roles= {}", roles);
-            //反序列化成List
-            List<SysRole> roleList = JSONArray.parseArray(roles, SysRole.class);
-            //从request中取得客户端传输的roleId
-            String roleId = request.getParameter("roleId");
-            log.info("## roleId= {}", roleId);
-            // 到roles中查找比对，此部分代码在SysRoleService
-            boolean flag = sysRoleService.checkRole(roleList, Integer.parseInt((roleId)));
-            log.info("## flag= {}", flag);
-            //在token中解析出的roles中含有请求参数的role值,放行到controller中获取数据
-            if (flag) {
-                return true;
-            } else {
-                log.info("### 用户权限不足 ###");
-                //通过自定义异常抛出权限不足的信息，由全局统一处理
-                throw new CustomException("用户权限不足", ResultCode.PERMISSION_NO_ACCESS);
+            }else{
+                //从request中取得客户端传输的roleId
+                String roleId = request.getParameter("roleId");
+                if (roleId != null) {
+                    //用这个secrect私钥从token中解析出roles字符串
+                    String secrect = redisService.getValue(adminId, String.class);
+                    String roles = JwtTokenUtil.getRoles(token, secrect);
+                    log.info("## roles= {}", roles);
+                    //反序列化成List
+                    List<SysRole> roleList = JSONArray.parseArray(roles, SysRole.class);
+                    log.info("## roleId= {}", roleId);
+                    // 到roles中查找比对，此部分代码在SysRoleService
+                    boolean flag = sysRoleService.checkRole(roleList, Integer.parseInt((roleId)));
+                    log.info("## flag= {}", flag);
+                    if (flag) {
+                        //在token中解析出的roles中含有请求参数的role值,放行到controller中获取数据
+                        log.info("Jwt拦截器放行");
+                        return true;
+                    } else {
+                        log.info("### 用户权限不足 ###");
+                        //通过自定义异常抛出权限不足的信息，由全局统一处理
+                        throw new CustomException("用户权限不足", ResultCode.PERMISSION_NO_ACCESS);
+                    }
+                }else {
+                    //没有roleId就是之前已经鉴过了，直接放行
+                    log.info("Jwt拦截器放行");
+                    return true;
+                }
             }
         }
     }

@@ -27,10 +27,10 @@ public class WebConfig implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        //registry.addInterceptor(loginInterceptor).addPathPatterns("/sysAdmin/login").excludePathPatterns("/**").excludePathPatterns("/static/**");
-        //registry.addInterceptor(jwtInterceptor).addPathPatterns("/sysRole").excludePathPatterns("**").excludePathPatterns("/static/**");
-        registry.addInterceptor(loginInterceptor).addPathPatterns("/sysAdmin/login");
-        registry.addInterceptor(jwtInterceptor).addPathPatterns("/**").excludePathPatterns("/sysAdmin/login","/captcha","/songType/all","/songType/add","/songType/delete","/songList/getByPage","/songList/all","/songList/getSongList","/resources/songs","/sysAdmin/update","/sysAdmin/updatePassword").excludePathPatterns("/static/**");
+        registry.addInterceptor(loginInterceptor).addPathPatterns("/sysAdmin/login").excludePathPatterns("/**").excludePathPatterns("/static/**");
+        registry.addInterceptor(jwtInterceptor).addPathPatterns("/**").excludePathPatterns("/sysAdmin/login","/captcha").excludePathPatterns("/static/**");
+       // registry.addInterceptor(loginInterceptor).addPathPatterns("/sysAdmin/login");
+       // registry.addInterceptor(jwtInterceptor).addPathPatterns("/**").excludePathPatterns("/sysAdmin/login","/captcha","/songType/all","/songType/add","/songType/delete","/songList/getByPage","/songList/all","/songList/getSongList","/resources/songs","/sysAdmin/update","/sysAdmin/updatePassword","/api/uploadFile").excludePathPatterns("/static/**");
     }
 }
 
