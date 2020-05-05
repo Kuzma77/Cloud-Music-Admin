@@ -57,7 +57,7 @@ public class AliOssUtil {
         return url;
     }
     public static void main(String[] args) {
-        File file = new File("C:\\Users\\HP\\Pictures\\Saved Pictures\\短发11.jpeg");
+        File file = new File("C:\\Users\\HP\\Desktop\\en\\Python库大全.pdf");
         upload(file);
     }
 }
