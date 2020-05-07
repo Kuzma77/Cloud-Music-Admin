@@ -176,12 +176,6 @@
             <artifactId>aliyun-sdk-oss</artifactId>
             <version>3.9.1</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/pl.edu.icm.yadda/oss -->
-        <dependency>
-            <groupId>pl.edu.icm.yadda</groupId>
-            <artifactId>oss</artifactId>
-            <version>4.4.14</version>
-        </dependency>
         <!-- https://mvnrepository.com/artifact/com.aliyun/oss-client -->
         <dependency>
             <groupId>com.aliyun</groupId>

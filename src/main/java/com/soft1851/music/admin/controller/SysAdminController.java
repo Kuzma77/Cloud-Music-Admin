@@ -56,6 +56,17 @@ public class SysAdminController {
         return sysAdminService.login(loginDto);
     }
 
+    /**
+     * github第三方登录
+     * @param uId
+     * @return
+     */
+    @GetMapping("/github/login")
+    @ControllerWebLog
+    public Map githubLogin(@RequestParam("uId") String uId) {
+        return sysAdminService.githubLogin(uId);
+    }
+
     @GetMapping(value = "/{adminName}")
     @ControllerWebLog
     public SysAdmin getRoleByName(@Valid @PathVariable @Size(max = 10,message = "name长度超出范围") String adminName ){

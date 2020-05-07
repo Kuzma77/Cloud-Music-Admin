@@ -70,6 +70,27 @@ public class SysAdminServiceImpl extends ServiceImpl<SysAdminMapper, SysAdmin> i
         }
     }
 
+    @Override
+    public Map<String, Object> githubLogin(String uId) {
+        QueryWrapper<SysAdmin> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("u_id", uId);
+        SysAdmin admin = sysAdminMapper.selectOne(queryWrapper);
+        SysAdmin sysAdmin = sysAdminMapper.selectByAccount(admin.getAccount());
+        //roles是个list，可能会是多个
+        List<SysRole> roles = sysAdmin.getRoles();
+        String roleString = JSONObject.toJSONString(roles);
+        log.info("管理员角色列表：" + roleString);
+        log.info("## id= {}", admin.getId());
+        //通过该管理员的id、roles、私钥、指定过期时间生成token
+        String token = JwtTokenUtil.getToken(admin.getId(), JSONObject.toJSONString(roles), admin.getSalt(), new Date(System.currentTimeMillis() + 6000L * 1000L));
+        log.info("## token= {}", token);
+        //将私钥存入redis，在后面JWT拦截器中可以取出来对客户端请求头中的token解密
+        redisService.set(sysAdmin.getId(), sysAdmin.getSalt(), 100L);
+        Map<String, Object> map = new TreeMap<>();
+        map.put("admin", sysAdmin);
+        map.put("token", token);
+        return map;
+    }
 
     @Override
     public SysAdmin getAdmin(String account) {

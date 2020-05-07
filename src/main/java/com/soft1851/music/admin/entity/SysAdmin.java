@@ -81,11 +81,18 @@ public class SysAdmin extends Model<SysAdmin> {
     private LocalDateTime updateTime;
 
     /**
+     * 第三方登录用户id
+     */
+    @TableField("u_id")
+    private String uId;
+
+    /**
      * 账户状态：0 禁用 1 启用
      */
     @TableField("status")
     private Integer status;
 
+    @TableField(exist = false)
     private List<SysRole> roles;
 
     @Override

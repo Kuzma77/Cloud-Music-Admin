@@ -26,6 +26,13 @@ public interface SysAdminService extends IService<SysAdmin> {
     Map<String,Object> login(LoginDto loginDto);
 
     /**
+     * github第三方登录
+     * @param uId
+     * @return
+     */
+    Map<String, Object> githubLogin(String uId);
+
+    /**
      * 根据account查询Admin
      * @param account
      * @return
